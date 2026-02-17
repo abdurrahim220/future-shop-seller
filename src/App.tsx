@@ -1,36 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Button } from './components/ui/button'
+import { ThemeProvider } from "./components/ThemeProvider";
+import { SidebarInset, SidebarProvider } from "./components/ui/sidebar";
+import AppSidebar from "./components/AppSidebar";
+import Header from "./components/pages/Header";
+import Page from "./components/pages/Page";
+import PageHeader from "./components/pages/PageHeader";
+import DashboardCard from "./components/DashboardCard";
+import AppBarChart from "./components/chart/AppBarChart";
+import AppRadicalChartBar from "./components/chart/AppRadicalChartBar";
+import { TrendingUpIcon } from "lucide-react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <Button>Vite + React</Button>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ThemeProvider>
+      <SidebarProvider open={false}>
+        <AppSidebar />
+        <SidebarInset>
+          <Header />
+          <main>
+            <Page>
+              <PageHeader />
+              <div className="grid gap-6 py-8 lg:grid-cols-[1fr_360px]">
+                <DashboardCard
+                  title="Vendor breakdown"
+                  description="last 7 days"
+                  buttonText="View all"
+                >
+                  <AppBarChart />
+                </DashboardCard>
+                <DashboardCard
+                  title="Vendor monitorez"
+                  description="last 7 days"
+                  buttonText="View full report"
+                >
+                  <div className="flex justify-between items-start">
+                    <AppRadicalChartBar />
+                    <div className="flex items-center gap-2">
+                      <TrendingUpIcon
+                        size={20}
+                        className="text-emerald-500 dark:text-emerald-400"
+                      />
+                      <span className="text-emerald-500 dark:text-emerald-400">
+                        10%
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-6 lg:mt-8">
+                    <p className="font-medium">
+                      You have almost reached your monthly limit
+                    </p>
+                    <p className="text-muted-foreground text-sm">
+                      Upgrade to a plan that suits your needs
+                    </p>
+                  </div>
+                </DashboardCard>
+              </div>
+            </Page>
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </ThemeProvider>
+  );
 }
-
-export default App
