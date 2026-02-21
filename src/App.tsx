@@ -8,6 +8,7 @@ import DashboardCard from "./components/DashboardCard";
 import AppBarChart from "./components/chart/AppBarChart";
 import AppRadicalChartBar from "./components/chart/AppRadicalChartBar";
 import { TrendingUpIcon } from "lucide-react";
+import DashobardTable from "./components/DashobardTable";
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
                   </div>
                 </DashboardCard>
               </div>
+              <DashobardTable/>
             </Page>
           </main>
         </SidebarInset>
